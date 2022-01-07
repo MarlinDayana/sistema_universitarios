@@ -1,4 +1,4 @@
-const {response}= require('express');
+const {response, request}= require('express');
 
 
 const Materia=require('../models/materia');
@@ -40,10 +40,17 @@ const materiasGet = async (req, res= response) => {
 
   }
 
-  const materiasPut = async (req, res= response) => {
+  const materiasPut = async (req=request, res= response) => {
+
+    const {id}=req.params
+  
+    const {body}=req.body;
+
+    const materiaAct= Materia.findByIdAndUpdate(id, body, {new: true})
 
     res.json({
         message:'put API- desde el controlador',
+        materiaAct
        
     })
   }

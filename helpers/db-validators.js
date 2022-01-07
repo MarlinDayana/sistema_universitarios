@@ -1,5 +1,6 @@
 const Estudiante = require('../models/estudiante');
 const Programa = require('../models/programa');
+const Materia = require('../models/materia');
 
 const esProgramaValido = async (programaAcademico ='')=> {
     const existePrograma = await Programa.findOne({programaAcademico});
@@ -23,10 +24,19 @@ const  existeEstudianteporID = async (id='') => {
     
    }
 
+
 }
 
+const existeidMateria = (id='') =>{
+  const materiaid = Materia.findById(id);
+  if(!materiaid){
+      throw new Error ('el id no existe')
+  }
+
+}
 module.exports ={
     esEmailValido,
     esProgramaValido,
-    existeEstudianteporID
+    existeEstudianteporID,
+    existeidMateria
 }

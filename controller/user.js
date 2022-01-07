@@ -1,10 +1,10 @@
-const {response}= require('express');
+const {request, response}= require('express');
 
 
 const Estudiante=require('../models/estudiante');
 
 
-const usuariosGet = async (req, res= response) => {
+const usuariosGet = async (req=request, res= response) => {
 
   const {desde=0, limit=10}= req.query;
 
@@ -40,13 +40,13 @@ const usuariosGet = async (req, res= response) => {
 
   }
 
-  const usuariosPut = async (req, res= response) => {
+  const usuariosPut = async (req=request, res= response) => {
 
     try {
       const {id} = req.params;
       const {body}=req.body;
  
-      const estudiante = await Estudiante.findByIdAndUpdate(id, body);
+      const estudiante = await Estudiante.findByIdAndUpdate(id, body, {new: true});
  
      res.json({
          message:'put API- desde el controlador',

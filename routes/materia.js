@@ -1,6 +1,7 @@
 const { Router }=require('express');
 const { check } = require('express-validator');
 const { materiasGet, materiasPost, materiasDelete, materiasPut } = require('../controller/materia');
+const { existeidMateria } = require('../helpers/db-validators');
 const { validarCampos } = require('../middlewares/validationsPersonalizadas');
 
 
@@ -18,7 +19,11 @@ router.post('/', [
     validarCampos
 ],materiasPost );
 
-router.put('/', materiasPut);
+router.put('/:id', [
+    check('id','el id ingresado no es un id de mongo').isMongoId(),
+    check('id').custom(existeidMateria),
+    validarCampos
+],materiasPut);
 
 router.delete('/', materiasDelete)
 
