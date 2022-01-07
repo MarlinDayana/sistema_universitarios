@@ -2,20 +2,28 @@ const {response}= require('express');
 
 
 const Semestre=require('../models/semestre');
-//const Materia=require('../models/materia');
+//const materia=require('../models/materia');
 
 
 const semestresGet = async (req, res= response) => {
 
 
+  const query = {estado: true}
+
+  const [total, semestres] = await Promise.all([
+    Semestre.countDocuments(query),
+    Semestre.find(query)
+
+  ])
+    res.json({
+      total,
+      semestres
 
     // EN EL SEMESTRE DEBE IR EL LISTADO DE LAS MATERIAS PROPIAS DEL SEMESTRE pero no se como 
 
    // const query = {'codigoMateria>=100'}
 // const query = materias.find(materias.codigoMateria>=100), 
  
-    res.json({
-        message:'Get API- desde el controlador',
     })
   }
 
@@ -32,26 +40,66 @@ const semestresGet = async (req, res= response) => {
      
 
     res.json({
-        message:'post API- desde el controlador',
         semestre
     })
 
   }
 
-  const semestresPut = async (req, res= response) => {
+  // const semestresPut = async (req, res= response) => {
 
-    res.json({
-        message:'put API- desde el controlador',
-       
-    })
+  //   try{
+  //     let id = req.params.id;
+  //     let {numero, materias, estudiantes} = req.body;
+  //     await Semestre.findByIdAndUpdate(id, {numero, materias, estudiantes}, {new: true});
+  //     {
+  //       where: {id
+  //       }
+  //     };
+  //     res.status(200).send('Semestre actualizado');
+  //   }catch(error){
+  //     res.status(404).send('algo fallo');
+  //   }
+    
+  // }
+
+  const semestresDelete = async (req, res= response) => {
+
+    //const numero= Materia.numero
+    try{
+      const id = req.params.id;    
+      await Semestre.findByIdAndUpdate(id, {estado:false});
+      {
+        where: {id
+        }
+      };
+      res.status(200).send('semestre eliminado');
+    }catch(error){
+      res.status(404).send('fallo algo')
+    }
+}
+
+const asignarMat = async (req, res) => {
+
+  try{
+    const id=req.params.id;
+
+    const {materia}=req.body;
+  
+  
+    await Semestre.findByIdAndUpdate(
+      id,
+      {
+        $push: {materias : materia},
+        
+    }, { useFindAndModify: false }
+    );
+    res.status(200).send('materia agregada')
+
+  }catch(error){
+    res.status(404).send('algo falló');
   }
 
-  const semestresDelete = (req, res= response) => {
-
-    res.json({
-        message:'delete API- desde el controlador',
-        
-  })
+  
 }
 
 
@@ -61,7 +109,8 @@ const semestresGet = async (req, res= response) => {
   module.exports = {
     semestresGet,
     semestresPost,
-    semestresPut,
-    semestresDelete
+    //semestresPut,
+    semestresDelete,
+    asignarMat
 
 }

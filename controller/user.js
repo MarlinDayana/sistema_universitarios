@@ -42,36 +42,67 @@ const usuariosGet = async (req=request, res= response) => {
 
   const usuariosPut = async (req=request, res= response) => {
 
-    try {
-      const {id} = req.params;
-      const {body}=req.body;
+    // try {
+    //   const {_id} = req.params.id;
+    //   const {body}=req.body;
  
-      const estudiante = await Estudiante.findByIdAndUpdate(id, body, {new: true});
+    //   const estudiante = await Estudiante.findByIdAndUpdate(_id, body, {new: true});
  
-     res.json({
-         message:'put API- desde el controlador',
-         estudiante
-     })
-    }catch(error){
-      console.log(error)
-      throw new Error('no se puede actualizar el usuario');
-    }
+    //  res.json({
+    //      message:'put API- desde el controlador',
+    //      estudiante
+    //  })
+    // }catch(error){
+    //   console.log(error)
+    //   throw new Error('no se puede actualizar el usuario');
+    // }
 
+    try{
+      let id = req.params.id;
+      let {nombre, identificacion, correo}=req.body;
+      await Estudiante.findByIdAndUpdate(id, {nombre, identificacion, correo},  {new: true});
+      {
+        where: {id
+        }
+      };
+      res.status(200).send('estudiante actualizado');
+    }catch(error){
+      res.status(404).send('no se puede actualizar el estudiante');
+    }
    
   }
 
-  const usuariosDelete = (req, res= response) => {
-    const id = req.params;
+  const usuariosDelete = async (req, res= response) => {
 
-    const estudianteeliminado = Estudiante.findByIdAndDelete(id);
+    try{
+      const id = req.params.id;    
+      await Estudiante.findByIdAndUpdate(id, {estado:false});
+      {
+        where: {id
+        }
+      };
+      res.status(200).send(`estudiante eliminado`);
+    }catch(error){
+      res.status(404).send('fallo algo')
+    }
+
+   
+
+    //-//-//INTENTOS FALLIDOS
+
+    //const estudianteeliminado = Estudiante.findByIdAndDelete(id);
 
     //const borrarEstudiante= Estudiante.findByIdAndUpdate(id, {estado:false});
 
-    res.json({
-        message:'delete API- desde el controlador',
-        //borrarEstudiante
-        estudianteeliminado
-    })
+    // res.json({
+    //     message:'delete API- desde el controlador',
+    //     //borrarEstudiante
+    //     estudianteeliminado
+    // })
+
+    //-//-//INTENTOS FALLIDOS
+
+  
   }
 
   const usuariosPatch = (req, res= response) => {

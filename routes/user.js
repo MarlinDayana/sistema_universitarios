@@ -20,19 +20,23 @@ router.post('/', [
     validarCampos
 ], usuariosPost );
 
-router.put('/:id', [
+router.put('/:id', 
+// [
 
-    check('id', 'el id ingresado no se encuentra en la base de dato').isMongoId(),
-    check('id').custom(existeEstudinateporID),
-    check('programaAcademico').custom(esProgramaValido),
-    validarCampos
-    ],usuariosPut);
+//     check('id', 'el id ingresado no se encuentra en la base de dato').isMongoId(),
+//     check('id').custom(existeEstudinateporID),
+//     check('programaAcademico').custom(esProgramaValido),
+//     validarCampos
+//     ],
+    usuariosPut);
 
-router.delete('/:id', [
-    check('id', 'el id ingresado no se encuentra en la base de datos').isMongoId(),
-    check('id').custom(existeEstudinateporID),
-    validarCampos
-], usuariosDelete);
+router.delete('/:id', 
+// [
+//     check('id', 'el id ingresado no se encuentra en la base de datos').isMongoId(),
+//     check('id').custom(existeEstudinateporID),
+//     validarCampos
+// ],
+ usuariosDelete);
 
 router.patch('/', usuariosPatch );
 

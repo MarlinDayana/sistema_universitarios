@@ -42,25 +42,44 @@ const materiasGet = async (req, res= response) => {
 
   const materiasPut = async (req=request, res= response) => {
 
-    const {id}=req.params
-  
-    const {body}=req.body;
+    
 
-    const materiaAct= Materia.findByIdAndUpdate(id, body, {new: true})
+     try{
+      let id = req.params.id;
+      let {nombre_materia, codigoMateria, creditos, tipodemateria}=req.body;
+      await Materia.findByIdAndUpdate(id, {nombre_materia, codigoMateria, creditos, tipodemateria}, {new: true});
+      {
+        where: {id
+        }
+      };
+      res.status(200).send('Materia actualizada');
+    }catch(error){
+      res.status(404).send('algo fallo');
+    }
+    // const materiaAct= Materia.findByIdAndUpdate(id, body, {new: true})
 
-    res.json({
-        message:'put API- desde el controlador',
-        materiaAct
+    // res.json({
+    //     message:'put API- desde el controlador',
+    //     materiaAct
        
-    })
+    // })
   }
 
-  const materiasDelete = (req, res= response) => {
+  const materiasDelete = async (req, res= response) => {
 
-    res.json({
-        message:'delete API- desde el controlador',
-        
-  })
+    try{
+      const id = req.params.id;    
+      await Materia.findByIdAndUpdate(id, {estado:false});
+      {
+        where: {id
+        }
+      };
+      res.status(200).send(`materia eliminada`);
+    }catch(error){
+      res.status(404).send('fallo algo')
+    }
+
+  
 }
 
 

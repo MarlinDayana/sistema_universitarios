@@ -14,7 +14,14 @@ const MateriaSchema = Schema({
     },
     creditos:{
         type: String
-    }
+    }, 
+
+    estado: {
+    type: Boolean,
+    default: true
+}
+
+  
 
 });
 

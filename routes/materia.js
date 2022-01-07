@@ -19,13 +19,15 @@ router.post('/', [
     validarCampos
 ],materiasPost );
 
-router.put('/:id', [
-    check('id','el id ingresado no es un id de mongo').isMongoId(),
-    check('id').custom(existeidMateria),
-    validarCampos
-],materiasPut);
+router.put('/:id'
+// [
+//     check('id','el id ingresado no es un id de mongo').isMongoId(),
+//     check('id').custom(existeidMateria),
+//     validarCampos
+// ]
+,materiasPut);
 
-router.delete('/', materiasDelete)
+router.delete('/:id', materiasDelete)
 
 
 

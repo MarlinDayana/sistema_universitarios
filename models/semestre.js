@@ -3,18 +3,30 @@ const {Schema, model}=require('mongoose');
 const SemestreSchema = Schema({
     numero:{
         type: Number,
-        required: [true, 'campo obligatorio']
+        required: [true, 'campo obligatorio'],
+        unique: [true]
     },
-    materias:{
-        type: String,
-        required: [true, 'campo obligatorio']
-    },
+
+    // [{ type: Schema.Types.ObjectId, ref: 'teachers' }],
+    //  },
+
+    materias:
+    [{
+        type: Schema.Types.ObjectId, ref: 'materias'
+    }],
+
     estudiantes:{
-        type: String,
-        required: [true, 'campo obligatorio']
+        type: Array
+    },
+    estado: {
+        type: Boolean,
+        default: true
     }
 
 });
 
+
+
+SemestreSchema.plugin(require('mongoose-autopopulate')); //esta vaina no funciona
 
 module.exports= model('Semestre', SemestreSchema)

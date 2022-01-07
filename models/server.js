@@ -15,6 +15,7 @@ class Server {
     this.usuarioPath='/api/user';
     this.materiaPath='/api/materias';
     this.semestrePath='/api/semestres';
+    this.asignarMat='/api/asignarMat';
 
     // base de datos 
     this.conectionDB();
@@ -43,7 +44,8 @@ class Server {
    routes (){
        this.app.use(this.usuarioPath, require('../routes/user'));
        this.app.use(this.materiaPath, require('../routes/materia'));
-       this.app.use(this.semestrePath, require('../routes/semestre'));
+      // this.app.use(this.semestrePath, require('../routes/semestre'));
+       this.app.use(this.asignarMat, require('../routes/semestre'));
    }
 
   
