@@ -24,19 +24,16 @@ const EstudianteSchema = Schema ({
  },
 
  programaAcademico: {
-    type: String,
-    required: [false, 'este campo es obligatorio']
+    type: String
 },
 
-materiasMatriculadas: {
-    type: String,
-    required: [false, 'este campo es obligatorio']
-},
+materiasMatriculadas: [{
+    type: Schema.Types.ObjectId, ref: 'Materia'
+}],
  
-semestreActual: {
-    type: String,
-    required: [false, 'este campo es obligatorio']
-},
+semestreActual: [{
+    type: Schema.Types.ObjectId, ref: 'Semestre'
+}],
 
 estado: {
     type: Boolean,
@@ -46,10 +43,12 @@ estado: {
 
 });
 
-EstudianteSchema.methods.toJSON = function() {
-    const { __v, ...estudiante  } = this.toObject();
-    return estudiante;
-}
+EstudianteSchema.plugin(require('mongoose-autopopulate'));
+
+// EstudianteSchema.methods.toJSON = function() {
+//     const { __v, ...estudiante  } = this.toObject();
+//     return estudiante;
+// }
 
 
 

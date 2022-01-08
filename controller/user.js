@@ -8,7 +8,8 @@ const usuariosGet = async (req=request, res= response) => {
 
   const {desde=0, limit=10}= req.query;
 
-  const query = {estado: true}
+   const query = {estado: true}
+
 
   const [total, estudiantes] = await Promise.all([
     Estudiante.countDocuments(query),
@@ -21,6 +22,42 @@ const usuariosGet = async (req=request, res= response) => {
       total,
       estudiantes
     })
+  }
+
+  const estudianteGet= async (req, res)=>{
+      try{
+        const id = req.params.id
+
+        const estudiante = await Estudiante.findById(id,(err,estudiante)=>{
+
+          if (err) return res.status(500).send({message:' error al realizar la peticion'} )
+          if (!estudiante) return res.status(404).send({message:'el estudiante no existe'})
+
+          res.status(200).send({estudiante})
+
+        })
+          
+        
+
+
+
+  //  const [total, estudiante] = await Promise.all([
+  //   Estudiante.countDocuments(query),
+  //   Estudiante.find(query)
+  //   ])
+  //   //const estudiante= await Usuario.find(nombre=nombre)
+
+  //   res.json({
+  //     total,
+  //     estudiante
+  //   })
+    //res.status(200).send('ready')
+
+      }catch(error){
+        console.log(error);
+        throw new Error('error')
+      }
+    
   }
 
 
@@ -72,6 +109,12 @@ const usuariosGet = async (req=request, res= response) => {
    
   }
 
+ 
+//  const usuariosPut = async (req=request, res= response) => {
+
+//   }
+
+
   const usuariosDelete = async (req, res= response) => {
 
     try{
@@ -120,6 +163,7 @@ const usuariosGet = async (req=request, res= response) => {
     usuariosPost,
     usuariosPut,
     usuariosDelete,
-    usuariosPatch
+    usuariosPatch,
+    estudianteGet
 
 }

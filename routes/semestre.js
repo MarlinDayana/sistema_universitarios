@@ -1,7 +1,7 @@
 const { Router }=require('express');
 const { check } = require('express-validator');
 //const {check}= require('express-validator')
-const { semestresGet, semestresPost, semestresPut, semestresDelete, asignarMat} = require('../controller/semestre');
+const { semestresGet, semestresPost, semestresPut, semestresDelete, asignarMatPut, asignarEstudiante} = require('../controller/semestre');
 const { validarCampos } = require('../middlewares/validationsPersonalizadas');
 
 
@@ -15,12 +15,14 @@ router.post('/', [
     validarCampos
 ],semestresPost );
 
-//router.put('/:id', semestresPut);
+router.put('/:id', semestresPut);
 
-router.put('/:id', asignarMat);
+router.put('/api/asignarMat/:id', asignarMatPut);
+
+router.put('/api/asignarEstudiante/:id', asignarEstudiante);
 
 
-router.delete('/:id', semestresDelete)
+router.delete('/:id', semestresDelete);
 
 
 

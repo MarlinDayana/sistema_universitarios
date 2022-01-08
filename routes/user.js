@@ -1,6 +1,6 @@
 const { Router }=require('express');
 const {check}= require('express-validator')
-const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete, usuariosPatch } = require('../controller/user');
+const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete, usuariosPatch, estudianteGet } = require('../controller/user');
 const { esEmailValido, esProgramaValido, existeEstudinateporID } = require('../helpers/db-validators');
 const {validarCampos}=require('../middlewares/validationsPersonalizadas')
 
@@ -8,6 +8,8 @@ const {validarCampos}=require('../middlewares/validationsPersonalizadas')
 const router = Router();
 
 router.get('/', usuariosGet );
+
+router.get('/api/estudianteGet/:id', estudianteGet );
 
 
 router.post('/', [

@@ -12,12 +12,13 @@ const SemestreSchema = Schema({
 
     materias:
     [{
-        type: Schema.Types.ObjectId, ref: 'materias'
+        type: Schema.Types.ObjectId, ref: 'Materia'
     }],
 
-    estudiantes:{
-        type: Array
-    },
+    estudiantes:
+    [{
+        type: Schema.Types.ObjectId, ref: 'Estudiante'
+    }],
     estado: {
         type: Boolean,
         default: true
